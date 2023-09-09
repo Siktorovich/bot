@@ -13,6 +13,12 @@ func (c *Commander) Default(inputMessage *tgbotapi.Message) {
 }
 
 func (c *Commander) HandleUpdate(update tgbotapi.Update) {
+	defer func() {
+		if panicValue := recover(); panicValue != nil {
+			log.Println(panicValue)
+		}
+	}()
+
 	if update.Message == nil {
 		return
 	}
